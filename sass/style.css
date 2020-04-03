@@ -1,0 +1,56 @@
+body {
+  background-color: #000;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.circleContainer {
+  width: 450px;
+  height: 450px;
+  background-color: #db2525;
+  border-radius: 50%;
+}
+
+.circleContainer .circle {
+  width: 400px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: relative;
+  left: 25px;
+  top: 25px;
+  overflow: hidden;
+}
+
+.circleContainer .circle .hour {
+  width: 4px;
+  height: 45px;
+  background-color: #000;
+  position: absolute;
+  z-index: 100;
+}
+
+.circleContainer .circle .hour-1 {
+  top: 0px;
+  left: 193px;
+}
+
+.circleContainer .circle .hour-1::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 6px;
+  top: 0;
+  background-color: #000;
+}
+/*# sourceMappingURL=style.css.map */
