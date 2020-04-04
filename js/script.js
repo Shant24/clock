@@ -18,27 +18,41 @@ setInterval(() => {
   hoursArrow.style.transform = `rotate(${hours * 30}deg)`;
 }, 1000);
 
+let particleMaxVelocity = 0.5;
+let particleCount = 80;
+let lineLength = 150;
+let particleRadius = 3;
+screenSize();
+
+function screenSize() {
+  if (window.innerWidth <= 700) {
+    particleCount = 60;
+    lineLength = 120;
+  } else {
+    particleCount = 80;
+    lineLength = 150;
+  }
+}
+
 (function() {
   let canvas = document.createElement("canvas");
   ctx = canvas.getContext("2d");
-  w = canvas.width = innerWidth;
-  h = canvas.height = innerHeight;
+  w = canvas.width = screen.width;
+  h = canvas.height = screen.height;
   particles = [];
   console.log(particles);
   properties = {
     bgColor: "rgba(17, 17, 19, 1)",
     particleColor: "rgba(255, 40, 40, 1)",
-    particleRadius: 3,
-    particleCount: 80,
-    particleMaxVelocity: 0.5,
-    lineLength: 150,
-    particleLife: 6
+    particleLife: 8
   };
+
   document.querySelector("body").appendChild(canvas);
 
   window.onresize = function() {
-    w = canvas.width = innerWidth;
-    h = canvas.height = innerHeight;
+    w = canvas.width = screen.width;
+    h = canvas.height = screen.height;
+    screenSize();
   };
 
   class Particle {
@@ -46,11 +60,9 @@ setInterval(() => {
       this.x = Math.random() * w;
       this.y = Math.random() * h;
       this.velocityX =
-        Math.random() * (properties.particleMaxVelocity * 2) -
-        properties.particleMaxVelocity;
+        Math.random() * (particleMaxVelocity * 2) - particleMaxVelocity;
       this.velocityY =
-        Math.random() * (properties.particleMaxVelocity * 2) -
-        properties.particleMaxVelocity;
+        Math.random() * (particleMaxVelocity * 2) - particleMaxVelocity;
       this.life = Math.random() * properties.particleLife * 60;
     }
     position() {
@@ -67,7 +79,7 @@ setInterval(() => {
     }
     reDraw() {
       ctx.beginPath();
-      ctx.arc(this.x, this.y, properties.particleRadius, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, particleRadius, 0, Math.PI * 2);
       ctx.closePath();
       ctx.fillStyle = properties.particleColor;
       ctx.fill();
@@ -77,11 +89,9 @@ setInterval(() => {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
         this.velocityX =
-          Math.random() * (properties.particleMaxVelocity * 2) -
-          properties.particleMaxVelocity;
+          Math.random() * (particleMaxVelocity * 2) - particleMaxVelocity;
         this.velocityY =
-          Math.random() * (properties.particleMaxVelocity * 2) -
-          properties.particleMaxVelocity;
+          Math.random() * (particleMaxVelocity * 2) - particleMaxVelocity;
         this.life = Math.random() * properties.particleLife * 60;
       }
       this.life--;
@@ -104,8 +114,8 @@ setInterval(() => {
         x2 = particles[j].x;
         y2 = particles[j].y;
         length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        if (length < properties.lineLength) {
-          opacity = 1 - length / properties.lineLength;
+        if (length < lineLength) {
+          opacity = 1 - length / lineLength;
           ctx.lineWidth = "0.3";
           ctx.strokeStyle = "rgba(255, 40, 40, " + opacity + ")";
           ctx.beginPath();
@@ -134,7 +144,7 @@ setInterval(() => {
   }
 
   function init() {
-    for (let i = 0; i < properties.particleCount; i++) {
+    for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle());
     }
     loop();

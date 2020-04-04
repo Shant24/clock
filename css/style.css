@@ -32,6 +32,14 @@
   overflow: hidden;
 }
 
+@media screen and (max-width: 699px) {
+  * body .clockContainer .clock {
+    overflow: hidden;
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+
 * body .clockContainer .clock .test {
   position: absolute;
   top: 50%;
